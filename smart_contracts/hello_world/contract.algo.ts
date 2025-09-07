@@ -1,7 +1,9 @@
-import { Contract } from '@algorandfoundation/algorand-typescript'
+import { Contract, GlobalState, uint64 } from '@algorandfoundation/algorand-typescript'
 
-export class HelloWorld extends Contract {
-  hello(name: string): string {
-    return `Hello, ${name}`
+export class MemoryGame extends Contract {
+  hidden = GlobalState<uint64>({ key: "hidden", initialValue: 3 })
+
+  guess(num: uint64): string {
+    return num === this.hidden.value ? "match" : "wrong"
   }
 }

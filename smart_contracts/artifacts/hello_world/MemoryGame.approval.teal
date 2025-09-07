@@ -1,0 +1,94 @@
+#pragma version 10
+#pragma typetrack false
+
+// @algorandfoundation/algorand-typescript/arc4/index.d.ts::Contract.approvalProgram() -> uint64:
+main:
+    intcblock 0 1
+    bytecblock "hidden"
+    txn ApplicationID
+    bnz main_after_if_else@2
+    // smart_contracts/hello_world/contract.algo.ts:4
+    // hidden = GlobalState<uint64>({ key: "hidden", initialValue: 3 })
+    bytec_0 // "hidden"
+    pushint 3 // 3
+    app_global_put
+
+main_after_if_else@2:
+    // smart_contracts/hello_world/contract.algo.ts:3
+    // export class MemoryGame extends Contract {
+    txn NumAppArgs
+    bz main_bare_routing@8
+    pushbytes 0xabe0f9ce // method "guess(uint64)string"
+    txna ApplicationArgs 0
+    match main_guess_route@5
+
+main_after_if_else@12:
+    // smart_contracts/hello_world/contract.algo.ts:3
+    // export class MemoryGame extends Contract {
+    intc_0 // 0
+    return
+
+main_guess_route@5:
+    // smart_contracts/hello_world/contract.algo.ts:6
+    // guess(num: uint64): string {
+    txn OnCompletion
+    !
+    assert // OnCompletion is not NoOp
+    txn ApplicationID
+    assert // can only call when not creating
+    // smart_contracts/hello_world/contract.algo.ts:3
+    // export class MemoryGame extends Contract {
+    txna ApplicationArgs 1
+    btoi
+    // smart_contracts/hello_world/contract.algo.ts:6
+    // guess(num: uint64): string {
+    callsub guess
+    dup
+    len
+    itob
+    extract 6 2
+    swap
+    concat
+    pushbytes 0x151f7c75
+    swap
+    concat
+    log
+    intc_1 // 1
+    return
+
+main_bare_routing@8:
+    // smart_contracts/hello_world/contract.algo.ts:3
+    // export class MemoryGame extends Contract {
+    txn OnCompletion
+    bnz main_after_if_else@12
+    txn ApplicationID
+    !
+    assert // can only call when creating
+    intc_1 // 1
+    return
+
+
+// smart_contracts/hello_world/contract.algo.ts::MemoryGame.guess(num: uint64) -> bytes:
+guess:
+    // smart_contracts/hello_world/contract.algo.ts:6
+    // guess(num: uint64): string {
+    proto 1 1
+    // smart_contracts/hello_world/contract.algo.ts:4
+    // hidden = GlobalState<uint64>({ key: "hidden", initialValue: 3 })
+    intc_0 // 0
+    bytec_0 // "hidden"
+    app_global_get_ex
+    assert // check GlobalState exists
+    // smart_contracts/hello_world/contract.algo.ts:7
+    // return num === this.hidden.value ? "match" : "wrong"
+    frame_dig -1
+    ==
+    bz guess_ternary_false@2
+    pushbytes "match"
+    retsub
+
+guess_ternary_false@2:
+    // smart_contracts/hello_world/contract.algo.ts:7
+    // return num === this.hidden.value ? "match" : "wrong"
+    pushbytes "wrong"
+    retsub
