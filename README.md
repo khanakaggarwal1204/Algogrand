@@ -2,7 +2,8 @@
 
 Welcome to **MemoryGame**, a simple yet powerful decentralized application (dApp) built on the **Algorand blockchain** using TypeScript smart contracts.  
 This project is designed to be an easy-to-understand example for anyone getting started with Algorand development.  
-
+blob:https://web.whatsapp.com/374987f8-a4d2-4ef1-9565-a4e325cd44b2<img width="1600" height="776" alt="image" src="https://github.com/user-attachments/assets/cb8b7028-294e-485e-88ce-99edfffae005" />
+https://lora.algokit.io/testnet/application/745516624
 ---
 
 ## 📖 Project Description  
@@ -28,8 +29,7 @@ This project serves as a **starter template** for developers who want to learn t
 
 ---
 
-## 🔗 Deployed Smart Contract  
-👉 [View Smart Contract on Algorand Explorer](XXX)  
+ 
 
 ---
 
